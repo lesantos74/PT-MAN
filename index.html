@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>PT Man - O Jogo</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="game-container">
+        <div id="ui">
+            <div class="stat">Nível: <span id="level">1</span></div>
+            <div class="stat">Pontos: <span id="score">0</span></div>
+            <div class="stat">Vidas: <span id="lives">3</span></div>
+        </div>
+        <canvas id="gameCanvas"></canvas>
+        <div id="message">Clique para Iniciar</div>
+        <div id="toasty-container" class="hidden">
+            <img src="ladrao.png" id="toasty-img">
+        </div>
+        <div id="gameover-container" class="hidden">
+            <img src="ladrao1.png" id="gameover-img">
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>

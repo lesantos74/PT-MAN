@@ -1,0 +1,117 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #1a1a1a;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: white;
+    overflow: hidden;
+}
+
+#game-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #2a2a2a;
+    max-width: 95vw;
+    width: fit-content;
+}
+
+#ui {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: clamp(14px, 4vw, 20px);
+    font-weight: bold;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.stat {
+    padding: 5px 10px;
+    background: #333;
+    border-radius: 5px;
+    border: 1px solid #444;
+    white-space: nowrap;
+}
+
+#gameCanvas {
+    background-color: #000;
+    border: 4px solid #444;
+    border-radius: 5px;
+    image-rendering: pixelated;
+    max-width: 100%;
+    height: auto;
+    touch-action: none;
+}
+
+#message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.9);
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+    font-size: clamp(24px, 8vw, 48px);
+    border: 2px solid #ff0000;
+    z-index: 10;
+    width: 80%;
+}
+
+.hidden {
+    display: none;
+}
+
+#toasty-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: clamp(80px, 20vw, 150px);
+    height: clamp(80px, 20vw, 150px);
+    pointer-events: none;
+    z-index: 100;
+}
+
+#toasty-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+}
+
+#toasty-container.show #toasty-img {
+    transform: translateX(0);
+}
+
+#gameover-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: clamp(100px, 30vw, 200px);
+    height: clamp(100px, 30vw, 200px);
+    pointer-events: none;
+    z-index: 101;
+}
+
+#gameover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+}
+
+#gameover-container.show #gameover-img {
+    transform: translateX(0);
+}
