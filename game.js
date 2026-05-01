@@ -356,17 +356,18 @@ function resetGame() {
     gameWin = false;
     gameStarted = false;
     
+    // Reset enemies to original count
+    enemies.length = 4;
+    enemies.forEach((enemy, i) => {
+        enemy.speed = 1.5;
+    });
+
     // Reset map
     for (let r = 0; r < MAP.length; r++) {
         for (let c = 0; c < MAP[r].length; c++) {
             MAP[r][c] = ORIGINAL_MAP[r][c];
         }
     }
-    
-    // Reset enemy speeds
-    enemies.forEach((enemy, i) => {
-        enemy.speed = 1.5;
-    });
 
     resetPositions();
     updateUI();
@@ -411,10 +412,27 @@ function resetLevel() {
             }
         }
     }
+    
     // Increase enemy speed
     enemies.forEach(enemy => {
         enemy.speed += 0.5;
     });
+
+    // Level 3 extras: more enemies and pumpkins
+    if (level === 3) {
+        // Add 2 more enemies
+        enemies.push(
+            { x: 9 * TILE_SIZE, y: 9 * TILE_SIZE, dir: { x: 1, y: 0 }, speed: 2.5, type: 'picanha', color: '#ff4d4d' },
+            { x: 9 * TILE_SIZE, y: 9 * TILE_SIZE, dir: { x: -1, y: 0 }, speed: 2.5, type: 'cerveja', color: '#ffd700' }
+        );
+        
+        // Add extra pumpkins in corners
+        MAP[1][1] = 2;
+        MAP[1][MAP[0].length - 2] = 2;
+        MAP[MAP.length - 2][1] = 2;
+        MAP[MAP.length - 2][MAP[0].length - 2] = 2;
+    }
+
     resetPositions();
 }
 

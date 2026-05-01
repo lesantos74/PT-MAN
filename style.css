@@ -1,14 +1,23 @@
 body {
     margin: 0;
-    padding: 0;
+    padding: 10px;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    min-height: 100vh;
     background-color: #1a1a1a;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: white;
-    overflow: hidden;
+    overflow-x: hidden;
+}
+
+#developer-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff0000;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
 }
 
 #game-container {
@@ -116,49 +125,42 @@ body {
     transform: translateX(0);
 }
 
+/* Force controls to show on ALL devices */
 #controls {
-    display: none;
+    display: flex !important;
+    flex-direction: column;
+    align-items: center;
     margin-top: 20px;
     user-select: none;
+    width: 100%;
 }
 
 .control-row {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
     margin-bottom: 10px;
+    width: 100%;
 }
 
 .control-btn {
-    width: 60px;
-    height: 60px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 10px;
+    width: 70px;
+    height: 70px;
+    background: #444;
+    border: 3px solid #ff0000;
+    border-radius: 15px;
     color: white;
-    font-size: 24px;
+    font-size: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     touch-action: manipulation;
+    box-shadow: 0 4px 0 #8b0000;
 }
 
 .control-btn:active {
-    background: rgba(255, 0, 0, 0.5);
-    border-color: #ff0000;
-}
-
-/* Force controls to show on mobile or when the screen is small */
-#controls {
-    display: block; /* Always display block, but we can hide for desktop if we really want */
-    margin-top: 20px;
-    user-select: none;
-}
-
-@media (min-width: 1024px) and (pointer: fine) {
-    /* Only hide on large screens with a precise pointer (mouse) */
-    #controls {
-        display: none;
-    }
+    background: #ff0000;
+    transform: translateY(4px);
+    box-shadow: none;
 }
