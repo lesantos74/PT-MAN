@@ -149,9 +149,16 @@ body {
     border-color: #ff0000;
 }
 
-/* Show controls only on touch devices */
-@media (pointer: coarse) {
+/* Force controls to show on mobile or when the screen is small */
+#controls {
+    display: block; /* Always display block, but we can hide for desktop if we really want */
+    margin-top: 20px;
+    user-select: none;
+}
+
+@media (min-width: 1024px) and (pointer: fine) {
+    /* Only hide on large screens with a precise pointer (mouse) */
     #controls {
-        display: block;
+        display: none;
     }
 }
