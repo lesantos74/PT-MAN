@@ -539,4 +539,33 @@ canvas.addEventListener('touchmove', (e) => {
     e.preventDefault();
 }, { passive: false });
 
+// Virtual D-Pad controls
+const btnUp = document.getElementById('btn-up');
+const btnDown = document.getElementById('btn-down');
+const btnLeft = document.getElementById('btn-left');
+const btnRight = document.getElementById('btn-right');
+
+function handleControl(dir) {
+    if (gameOver || gameWin) {
+        resetGame();
+        return;
+    }
+    if (!gameStarted) {
+        startGame();
+        return;
+    }
+    player.nextDir = dir;
+}
+
+btnUp.addEventListener('touchstart', (e) => { handleControl({ x: 0, y: -1 }); e.preventDefault(); }, { passive: false });
+btnDown.addEventListener('touchstart', (e) => { handleControl({ x: 0, y: 1 }); e.preventDefault(); }, { passive: false });
+btnLeft.addEventListener('touchstart', (e) => { handleControl({ x: -1, y: 0 }); e.preventDefault(); }, { passive: false });
+btnRight.addEventListener('touchstart', (e) => { handleControl({ x: 1, y: 0 }); e.preventDefault(); }, { passive: false });
+
+// Also add click for non-touch testing
+btnUp.addEventListener('click', () => handleControl({ x: 0, y: -1 }));
+btnDown.addEventListener('click', () => handleControl({ x: 0, y: 1 }));
+btnLeft.addEventListener('click', () => handleControl({ x: -1, y: 0 }));
+btnRight.addEventListener('click', () => handleControl({ x: 1, y: 0 }));
+
 gameLoop();
