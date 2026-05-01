@@ -557,33 +557,68 @@ canvas.addEventListener('touchmove', (e) => {
     e.preventDefault();
 }, { passive: false });
 
-// Virtual D-Pad controls
-const btnUp = document.getElementById('btn-up');
-const btnDown = document.getElementById('btn-down');
-const btnLeft = document.getElementById('btn-left');
-const btnRight = document.getElementById('btn-right');
+// Virtual Joystick controls
+const joystickContainer = document.getElementById('joystick-container');
+const joystickBase = document.getElementById('joystick-base');
+const joystickStick = document.getElementById('joystick-stick');
 
-function handleControl(dir) {
-    if (gameOver || gameWin) {
-        resetGame();
-        return;
+let joystickActive = false;
+let joystickStartX, joystickStartY;
+
+function handleJoystick(e) {
+    if (!joystickActive) return;
+    
+    const touch = e.touches ? e.touches[0] : e;
+    const rect = joystickBase.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    
+    const dx = touch.clientX - centerX;
+    const dy = touch.clientY - centerY;
+    const distance = Math.hypot(dx, dy);
+    const maxDistance = rect.width / 2;
+    
+    // Limit stick movement
+    const limitedDistance = Math.min(distance, maxDistance);
+    const angle = Math.atan2(dy, dx);
+    const stickX = Math.cos(angle) * limitedDistance;
+    const stickY = Math.sin(angle) * limitedDistance;
+    
+    joystickStick.style.transform = `translate(${stickX}px, ${stickY}px)`;
+    
+    // Determine direction
+    if (distance > 20) {
+        if (!gameStarted) startGame();
+        if (gameOver || gameWin) {
+            resetGame();
+            return;
+        }
+
+        if (Math.abs(dx) > Math.abs(dy)) {
+            player.nextDir = { x: dx > 0 ? 1 : -1, y: 0 };
+        } else {
+            player.nextDir = { x: 0, y: dy > 0 ? 1 : -1 };
+        }
     }
-    if (!gameStarted) {
-        startGame();
-        return;
-    }
-    player.nextDir = dir;
 }
 
-btnUp.addEventListener('touchstart', (e) => { handleControl({ x: 0, y: -1 }); e.preventDefault(); }, { passive: false });
-btnDown.addEventListener('touchstart', (e) => { handleControl({ x: 0, y: 1 }); e.preventDefault(); }, { passive: false });
-btnLeft.addEventListener('touchstart', (e) => { handleControl({ x: -1, y: 0 }); e.preventDefault(); }, { passive: false });
-btnRight.addEventListener('touchstart', (e) => { handleControl({ x: 1, y: 0 }); e.preventDefault(); }, { passive: false });
+function startJoystick(e) {
+    joystickActive = true;
+    handleJoystick(e);
+}
 
-// Also add click for non-touch testing
-btnUp.addEventListener('click', () => handleControl({ x: 0, y: -1 }));
-btnDown.addEventListener('click', () => handleControl({ x: 0, y: 1 }));
-btnLeft.addEventListener('click', () => handleControl({ x: -1, y: 0 }));
-btnRight.addEventListener('click', () => handleControl({ x: 1, y: 0 }));
+function stopJoystick() {
+    joystickActive = false;
+    joystickStick.style.transform = 'translate(0, 0)';
+}
+
+joystickContainer.addEventListener('touchstart', (e) => { startJoystick(e); e.preventDefault(); }, { passive: false });
+joystickContainer.addEventListener('touchmove', (e) => { handleJoystick(e); e.preventDefault(); }, { passive: false });
+joystickContainer.addEventListener('touchend', stopJoystick);
+
+// Mouse support for testing
+joystickContainer.addEventListener('mousedown', startJoystick);
+window.addEventListener('mousemove', handleJoystick);
+window.addEventListener('mouseup', stopJoystick);
 
 gameLoop();

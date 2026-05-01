@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div id="developer-name">Desenvolvido por Lessandro</div>
     <div id="game-container">
         <div id="ui">
             <div class="stat">Nível: <span id="level">1</span></div>
@@ -23,15 +22,13 @@
             <img src="ladrao1.png" id="gameover-img">
         </div>
         <div id="controls">
-            <div class="control-row">
-                <button id="btn-up" class="control-btn">▲</button>
-            </div>
-            <div class="control-row">
-                <button id="btn-left" class="control-btn">◀</button>
-                <button id="btn-down" class="control-btn">▼</button>
-                <button id="btn-right" class="control-btn">▶</button>
+            <div id="joystick-container">
+                <div id="joystick-base">
+                    <div id="joystick-stick"></div>
+                </div>
             </div>
         </div>
+        <div id="developer-name">Desenvolvido por Lessandro</div>
     </div>
     <script src="game.js"></script>
 </body>

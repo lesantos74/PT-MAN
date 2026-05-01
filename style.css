@@ -13,11 +13,13 @@ body {
 }
 
 #developer-name {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: bold;
-    color: #ff0000;
-    margin-bottom: 10px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+    color: rgba(255, 0, 0, 0.7);
+    margin-top: 15px;
+    text-align: center;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    width: 100%;
 }
 
 #game-container {
@@ -125,7 +127,6 @@ body {
     transform: translateX(0);
 }
 
-/* Force controls to show on ALL devices */
 #controls {
     display: flex !important;
     flex-direction: column;
@@ -135,32 +136,41 @@ body {
     width: 100%;
 }
 
-.control-row {
+#joystick-container {
+    width: 150px;
+    height: 150px;
     display: flex;
     justify-content: center;
-    gap: 15px;
-    margin-bottom: 10px;
-    width: 100%;
-}
-
-.control-btn {
-    width: 70px;
-    height: 70px;
-    background: #444;
-    border: 3px solid #ff0000;
-    border-radius: 15px;
-    color: white;
-    font-size: 30px;
-    display: flex;
     align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    touch-action: manipulation;
-    box-shadow: 0 4px 0 #8b0000;
+    touch-action: none;
 }
 
-.control-btn:active {
+#joystick-base {
+    width: 120px;
+    height: 120px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 4px solid #ff0000;
+    border-radius: 50%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#joystick-stick {
+    width: 60px;
+    height: 60px;
     background: #ff0000;
-    transform: translateY(4px);
-    box-shadow: none;
+    border-radius: 50%;
+    position: absolute;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: transform 0.1s ease-out;
+}
+
+/* Hide joystick only on large screens with mouse */
+@media (min-width: 1024px) and (pointer: fine) {
+    #controls {
+        display: none !important;
+    }
 }
